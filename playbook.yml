@@ -1,0 +1,65 @@
+- hosts: localhost 
+  become: yes
+  tasks: 
+  - name: install apt packages 
+    apt: name={{item}} state=latest
+    with_items:
+      - git
+      - vim
+      - i3
+      - lightdm 
+      - lightdm-gtk-greeter
+      - arandr
+      - curl
+      - httpie
+      - rsync
+      - chromium-browser
+
+        # remove gdm3
+        # dpkg.-reconfigure lightdm
+        # add nvidia ppa
+        # install nvidia-390
+
+
+  - name:    Install prerequisites
+    apt:     name={{item}} update_cache=yes
+    with_items:
+     - apt-transport-https
+     - ca-certificates
+     - curl
+     - software-properties-common
+  - name:    Add Docker GPG key
+    apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+
+  - name:    Add Docker APT repositoryg
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} test 
+
+  - name:    Install Docker
+    apt:     name=docker-ce
+
+  - name: Ensure group "docker" exists
+    group:
+      name: docker 
+      state: present
+
+   # ATTENTION: this task can potentially create new users!
+  - name: Add users to the docker group
+    user:
+      name: haakon
+      groups: docker
+      append: yes
+    with_items: docker_group_members
+    tags: docker
+    notify: you need to restart to setup docker group for your user
+
+  - name: enable GUI on boot
+    service: name=lightdm enabled=yes
+    become: yes
+
+  - name: ensure SSH key is generated
+    command: ssh-keygen -t rsa 
+    args:
+      creates: /root/.ssh/id_rsa
+    notify: add .ssh/id_rsa.pub to github etc.
+
