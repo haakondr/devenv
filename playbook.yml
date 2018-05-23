@@ -6,32 +6,24 @@
     with_items:
       - git
       - vim
-      - i3
-      - lightdm 
-      - lightdm-gtk-greeter
       - arandr
       - curl
       - httpie
       - rsync
       - chromium-browser
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - docker-compose
 
-        # remove gdm3
-        # dpkg.-reconfigure lightdm
         # add nvidia ppa
         # install nvidia-390
 
-
-  - name:    Install prerequisites
-    apt:     name={{item}} update_cache=yes
-    with_items:
-     - apt-transport-https
-     - ca-certificates
-     - curl
-     - software-properties-common
   - name:    Add Docker GPG key
     apt_key: url=https://download.docker.com/linux/ubuntu/gpg
 
-  - name:    Add Docker APT repositoryg
+  - name:    Add Docker APT repository
     apt_repository:
       repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} test 
 
@@ -71,3 +63,58 @@
     apt:
       name: code
       state: present
+
+  - name: install chrome apt key
+    become: yes
+    apt_key:
+      url: 'https://dl-ssl.google.com/linux/linux_signing_key.pub'
+      state: present
+
+  - name: install chrome repo
+    become: yes
+    apt_repository:
+      update_cache: yes
+      repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+      state: present
+
+  - name: install google chrome
+    become: yes
+    apt:
+      name: google-chrome-stable
+
+  - name: Adds gcloud key
+    become: yes
+    apt_key:
+      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      state: present
+
+  - name: Adds gcloud repos
+    become: yes
+    apt_repository:
+      repo: "deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main"
+      update_cache: yes
+
+
+  - name: Installs google-cloud-sdk
+    apt:
+      pkg: "{{ item }}"
+      state: present
+    with_items:
+      - google-cloud-sdk
+      - python-pip
+      - python-setuptools
+      - python-openssl
+
+      # TODO: instal kubectl
+
+      #  - name: add nodejs ppa
+      #    become: yes
+      #    apt_repository:
+      #      repo: deb [arch=amd64] https://deb.nodesource.com/setup_10.x
+      #      state: present
+      #
+      #  - name: install nodejs
+      #    become: yes
+      #    apt:
+      #      name: nodejs
+      #      state: present
