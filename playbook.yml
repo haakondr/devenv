@@ -5,6 +5,7 @@
     apt: name={{item}} state=latest
     with_items:
       - git
+      - gitk
       - vim
       - arandr
       - curl
@@ -13,6 +14,7 @@
       - chromium-browser
       - apt-transport-https
       - ca-certificates
+      - git-cola
       - curl
       - software-properties-common
       - docker-compose
