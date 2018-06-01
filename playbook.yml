@@ -114,4 +114,14 @@
   - name: Setup kubectl shell autocompletion
     command: echo "source <(kubectl completion bash)" >> /home/haakon/.bashrc
 
+  - name: copy gitignore
+    copy:
+      src: files/.gitconfig
+      dest: /home/haakon/
+
+
+    # not sure if this works..
+  - name: setup PS1 with git branch info
+    command: echo "$(cat files/ps1)" >> /home/haakon/.bashrc
+
     #TODO: install nodejs/npm
