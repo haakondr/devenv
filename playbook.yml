@@ -110,16 +110,8 @@
   - name: Install kubectl
     command: snap install kubectl --classic
 
-      # TODO: instal kubectl
+    # not sure if this works..
+  - name: Setup kubectl shell autocompletion
+    command: echo "source <(kubectl completion bash)" >> /home/haakon/.bashrc
 
-      #  - name: add nodejs ppa
-      #    become: yes
-      #    apt_repository:
-      #      repo: deb [arch=amd64] https://deb.nodesource.com/setup_10.x
-      #      state: present
-      #
-      #  - name: install nodejs
-      #    become: yes
-      #    apt:
-      #      name: nodejs
-      #      state: present
+    #TODO: install nodejs/npm
