@@ -107,6 +107,9 @@
       - python-setuptools
       - python-openssl
 
+  - name: Install kubectl
+    command: snap install kubectl --classic
+
       # TODO: instal kubectl
 
       #  - name: add nodejs ppa
