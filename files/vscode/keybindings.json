@@ -1,0 +1,20 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+    {
+        "key": "alt+h",
+        "command": "workbench.action.navigateBack"
+    },
+    {
+        "key": "alt+l",
+        "command": "workbench.action.navigateForward"
+    },
+    {
+        "key": "ctrl+shift+-",
+        "command": "-workbench.action.navigateForward"
+    },
+    {
+        "key":     "ctrl+w",
+        "command": "workbench.action.closeActiveEditor",
+        "when":    "vim.mode != 'Insert'"
+    }
+]

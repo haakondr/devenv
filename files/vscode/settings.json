@@ -1,0 +1,22 @@
+{
+    "eslint.autoFixOnSave": true,
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "window.zoomLevel": 0,
+    "gitlens.advanced.messages": {
+        "suppressShowKeyBindingsNotice": true
+    },
+    "gitlens": {
+        "toggleFileHeatmap": true,
+        "historyExplorer.enabled": true,
+        "toggleCodeLens": false
+    },
+    "gitlens.toggleCodeLens": false,
+    "vim.useSystemClipboard": true,
+    "explorer.confirmDelete": false,
+    "extensions.ignoreRecommendations": false,
+    "files.exclude": {
+      ".next": true
+    }
+}
