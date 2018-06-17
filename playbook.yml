@@ -124,4 +124,7 @@
   - name: setup PS1 with git branch info
     command: echo "$(cat files/ps1)" >> /home/haakon/.bashrc
 
+  - name: increase inofity  watch limit
+    command: echo "fs.inotify.max_user_watches = 524288" | sudo tee --append /etc/sysctl.conf
+
     #TODO: install nodejs/npm
