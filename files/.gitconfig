@@ -15,6 +15,7 @@
 	default = tracking
 [core]
 	autocrlf = input
+	editor = vim
 
 [alias]
     ci = commit
